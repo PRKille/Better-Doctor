@@ -34,7 +34,17 @@ $(document).ready(function(){
       } else if (results.meta.total === 0) {
         $(".doctors").append("No Results Found!");
       } else {
-        console.log(results);
+        results.data.forEach(practice => {
+          practice.practices.forEach(location => {
+            console.log(location);
+            if (location.accepts_new_patients) {
+              $(".doctors").append("Name: "+location.name+"<br> Address:<br>"+location.visit_address.street+" "+location.visit_address.street2+"<br>"+location.visit_address.city+", "+location.visit_address.state+"<br>"+location.visit_address.zip+"<br>Website: "+location.website+"<br>Phone Number: <br>");
+              location.phones.forEach(phone => {
+                $(".doctors").append(phone.type+": "+phone.number+"<br>");
+              });
+            }
+          });
+        });
       }
 
     })();
