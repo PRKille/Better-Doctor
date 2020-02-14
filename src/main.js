@@ -10,6 +10,17 @@ $(document).ready(function(){
   let last = "";
   let ailment = "";
 
+  (async () => {
+    const specialists = await doctorList.findSpecialties();
+    if (typeof(specialists) === "string") {
+      $(".doctors").append("<span class='card warning'>There was an error processing your request: "+specialists+"</span>");
+    } else {
+      specialists.data.forEach(speciality => {
+        $("#specialities").append("<option value='"+speciality.name+"'>"+speciality.name+"</option>");
+      });
+    }
+  })();
+
   $("#userinput").submit(function(event){
     event.preventDefault();
     $(".doctors").empty();
