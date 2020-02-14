@@ -8,4 +8,14 @@ export class DoctorService {
       return error.message;
     }
   }
+
+  async findSpecialties() {
+    try {
+      let response = await fetch(`https://api.betterdoctor.com/2016-03-01/specialties?user_key=${process.env.API_KEY}`);
+      const jsonresponse = await response.json();
+      return jsonresponse;
+    } catch(error) {
+      return error.message;
+    }
+  }
 }
