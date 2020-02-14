@@ -30,23 +30,18 @@ $(document).ready(function(){
       let results = await doctorList.findDoctor(first, last, ailment);
       
       if (typeof(results) === "string") {
-        $(".doctors").append("There was an error processing your request: "+results);
+        $(".doctors").append("<span class='card warning'>There was an error processing your request: "+results+"</span>");
       } else if (results.meta.total === 0) {
-        $(".doctors").append("No Results Found!");
+        $(".doctors").append("<span class='card warning'>No Results Found!</span>");
       } else {
         results.data.forEach(practice => {
           practice.practices.forEach(location => {
-            console.log(location);
             if (location.accepts_new_patients) {
-              $(".doctors").append("Name: "+location.name+"<br> Address:<br>"+location.visit_address.street+" "+location.visit_address.street2+"<br>"+location.visit_address.city+", "+location.visit_address.state+"<br>"+location.visit_address.zip+"<br>Website: "+location.website+"<br>Phone Number: <br>");
-              location.phones.forEach(phone => {
-                $(".doctors").append(phone.type+": "+phone.number+"<br>");
-              });
+              $(".doctors").append("<div class='card'><span class='title'>Name:</span> "+location.name+"<br> <span class='title'>Address:</span>"+location.visit_address.street+" "+location.visit_address.street2+"<br>"+location.visit_address.city+", "+location.visit_address.state+"<br>"+location.visit_address.zip+"<br><span class='title'>Website:</span> "+location.website+"<br><span class='title'>Phone Number:</span> "+location.phones[0].number);
             }
           });
         });
       }
-
     })();
   });
 

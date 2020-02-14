@@ -1,0 +1,54 @@
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+  max-width: 100%;
+  background-image: url("https://image.freepik.com/free-vector/caduceus-medical-care-icon-vector_23-2147500971.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.card {
+  margin: 5px;
+  padding: 5px;
+  background-image: linear-gradient(to left top, royalblue, 15%, aliceblue);
+  border: 3px;
+  border-style: ridge;
+}
+
+.title {
+  font-weight: bolder;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#heading {
+  background-image: linear-gradient(to right top, royalblue, aliceblue);
+
+}
+
+#userinput {
+  margin-left: 25%;
+  margin-right: 25%;
+  background-image: linear-gradient(to right top, aliceblue,  85%, royalblue);
+
+}
+
+form {
+  font-weight: bolder;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+}
+
+button {
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.warning {
+  font-weight: bold;
+  text-align: center;
+  font-style: italic;
+  background-image: radial-gradient(pink, aliceblue);
+}
