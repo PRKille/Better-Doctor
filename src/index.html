@@ -7,11 +7,7 @@
   <div class="container">
     <div class="panel panel-default">
       <h1>Tell us what you're looking for!</h1>
-      <form class="userinput">
-        <div>
-          <label for="ailment">Your Ailment:</label>
-          <input type="text" id="ailment">
-        </div>
+      <form id="userinput">
         <div>
           <label for="firstName">Doc's first name:</label>
           <input type="text" id="firstName">
@@ -20,6 +16,11 @@
           <label for="lastName">Doc's last name:</label>
           <input type="text" id="lastName">
         </div>
+        <div>
+          <label for="ailment">Your Ailment:</label>
+          <input type="text" id="ailment">
+        </div>
+        <button type="submit">Find Help!</button>
       </form>
       <div class="doctors"></div>
     </div>
