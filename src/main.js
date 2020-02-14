@@ -9,6 +9,7 @@ $(document).ready(function(){
   let first = "";
   let last = "";
   let ailment = "";
+  let special = "";
 
   (async () => {
     const specialists = await doctorList.findSpecialties();
@@ -16,7 +17,7 @@ $(document).ready(function(){
       $(".doctors").append("<span class='card warning'>There was an error processing your request: "+specialists+"</span>");
     } else {
       specialists.data.forEach(speciality => {
-        $("#specialities").append("<option value='"+speciality.name+"'>"+speciality.name+"</option>");
+        $("#specialities").append("<option value='"+speciality.uid+"'>"+speciality.name+"</option>");
       });
     }
   })();
@@ -37,9 +38,13 @@ $(document).ready(function(){
       ailment = "query="+$("input#ailment").val()+"&";
     }
 
+    if ($("#specialities").val() != "none") {
+      special = "specialty_uid="+$("#specialities").val()+"&";
+    }
+
     (async () => {
-      let results = await doctorList.findDoctor(first, last, ailment);
-      
+      let results = await doctorList.findDoctor(first, last, ailment, special);
+
       if (typeof(results) === "string") {
         $(".doctors").append("<span class='card warning'>There was an error processing your request: "+results+"</span>");
       } else if (results.meta.total === 0) {
