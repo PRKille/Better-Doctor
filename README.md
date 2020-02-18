@@ -16,6 +16,7 @@ _This site will allow you to search for a doctor based on their medical issue or
 | Site correctly calls API or returns specific error | api call | 200OK or error message |
 | User inputs a condition and recieves a list of doctors who can help | fever | doctors |
 | User inputs a name of a doctor and recieves a list of doctors with that name | Dan | all doctors with "Dan" in their name |
+| User can include specialty field to narrow results | sports therapy | Sports recovery specialists |
 | User inputs multiple fields to search and recieves a list of doctors | Mary, sprain | all doctors named Mary who can assist with a sprain |
 | If no results are returned inform the user | Dr Acula, One Way Blood Transfusion | No results found! |
 
@@ -58,6 +59,10 @@ _Please visit the [Node.js website](https://nodejs.org/en/download/) for install
   * _Then type "npm start" into your terminal and press enter, the site should load up in a browser window._
 
 Following this, you may choose to open/view one or all of the documents within to test my project.
+
+## Known Bugs
+
+Certain irregular inputs, such as longer url's, cause code to not return or output. Bug is inconsistent with cause unknown.
 
 ## Technologies Used
 

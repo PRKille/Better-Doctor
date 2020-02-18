@@ -6,10 +6,6 @@ import './styles.css';
 
 $(document).ready(function(){
   let doctorList = new DoctorService;
-  let first = "";
-  let last = "";
-  let ailment = "";
-  let special = "";
 
   (async () => {
     const specialists = await doctorList.findSpecialties();
@@ -23,40 +19,46 @@ $(document).ready(function(){
   })();
 
   $("#userinput").submit(function(event){
+    let query = "";
     event.preventDefault();
     $(".doctors").empty();
     
     if ($("input#firstName").val()) {
-      first = "first_name="+$("input#firstName").val()+"&";
+      query += "first_name="+$("input#firstName").val()+"&";
     }
 
     if ($("input#lastName").val()) {
-      last = "last_name="+$("input#lastName").val()+"&";
+      query += "last_name="+$("input#lastName").val()+"&";
     }
 
     if ($("input#ailment").val()) {
-      ailment = "query="+$("input#ailment").val()+"&";
+      query += "query="+$("input#ailment").val()+"&";
     }
 
     if ($("#specialities").val() != "none") {
-      special = "specialty_uid="+$("#specialities").val()+"&";
+      query += "specialty_uid="+$("#specialities").val()+"&";
     }
 
     (async () => {
-      let results = await doctorList.findDoctor(first, last, ailment, special);
+      let results = await doctorList.findDoctor(query);
 
       if (typeof(results) === "string") {
         $(".doctors").append("<span class='card warning'>There was an error processing your request: "+results+"</span>");
       } else if (results.meta.total === 0) {
         $(".doctors").append("<span class='card warning'>No Results Found!</span>");
       } else {
-        results.data.forEach(practice => {
-          practice.practices.forEach(location => {
-            if (location.accepts_new_patients) {
-              $(".doctors").append("<div class='card'><span class='title'>Name:</span> "+location.name+"<br> <span class='title'>Address:</span>"+location.visit_address.street+" "+location.visit_address.street2+"<br>"+location.visit_address.city+", "+location.visit_address.state+"<br>"+location.visit_address.zip+"<br><span class='title'>Website:</span> "+location.website+"<br><span class='title'>Phone Number:</span> "+location.phones[0].number);
+        console.log(results);
+        
+        for (let i = 0; i < results.data.length; i++) {
+          for(let j = 0; j < results.data[i].practices.length; j++) {
+            if (results.data[i].practices[j].accepts_new_patients) {
+             $(".doctors").append("<div class='card "+results.data[i].profile.first_name+"and"+results.data[i].practices[j].phones[0].number+"'><span class='title'>Name:</span> "+results.data[i].profile.first_name+" "+results.data[i].profile.last_name+"<br> <span class='title'>Address:</span>"+results.data[i].practices[j].visit_address.street+" "+results.data[i].practices[j].visit_address.street2+"<br>"+results.data[i].practices[j].visit_address.city+", "+results.data[i].practices[j].visit_address.state+"<br>"+results.data[i].practices[j].visit_address.zip+"<br><span class='title'>Phone Number:</span> "+results.data[i].practices[j].phones[0].number);
+              if (results.data[i].practices[j].website) {
+                $("."+results.data[i].profile.first_name+"and"+results.data[i].practices[j].phones[0].number).append("<span class='title'>Website:</span> "+results.data[i].practices[j].website+"<br>");
+              }
             }
-          });
-        });
+          }
+        }
       }
     })();
   });
